@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>用友N8C-ERP密码解密</title>
+    <link href="/2021/05/30/%E7%94%A8%E5%8F%8BN8C-ERP%E5%AF%86%E7%A0%81%E8%A7%A3%E5%AF%86/"/>
+    <url>/2021/05/30/%E7%94%A8%E5%8F%8BN8C-ERP%E5%AF%86%E7%A0%81%E8%A7%A3%E5%AF%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>文件存放位置：<code>L:\U8CERP\ierp\bin\prop.xml</code></p><p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210530060415.png" srcset="/img/loading.gif" alt="image-20210530055200306"></p><p>看起来挺像正常的明文密码2333</p><h2 id="密码解密"><a href="#密码解密" class="headerlink" title="密码解密"></a>密码解密</h2><p>解密方法：L:\U8CERP\middleware\mw.jar  -&gt; <code>decode()</code></p><p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210530060422.png" srcset="/img/loading.gif" alt="image-20210530055358440"></p><p>文件太杂直接全局搜索<code>nc.vo.framework.rsa;</code>，发现藏在<code>U8CERP\external\lib\basic.jar</code>里</p><p>idea把这两个jar包导入，直接解密（用户密码也一样的加密）。</p><p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210530060427.png" srcset="/img/loading.gif" alt="image-20210530055907420"> </p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>疑难杂症</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Parallels安装kali折腾笔记</title>
     <link href="/2021/01/06/Parallels%E5%AE%89%E8%A3%85kali%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/"/>
     <url>/2021/01/06/Parallels%E5%AE%89%E8%A3%85kali%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/</url>

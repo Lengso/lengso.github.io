@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="L1k0r">
   <meta name="keywords" content="">
-  <title>标签 - L1k0r&#39;s Blog</title>
+  <title>用友N8C-ERP密码解密 - L1k0r&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -46,7 +46,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -129,6 +129,38 @@
             </span>
 
             
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2021-05-30 06:13">
+                    2021年5月30日 早上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    90 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    1
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
           </div>
 
           
@@ -139,24 +171,81 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>文件存放位置：<code>L:\U8CERP\ierp\bin\prop.xml</code></p>
+<p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210530060415.png" srcset="/img/loading.gif" alt="image-20210530055200306"></p>
+<p>看起来挺像正常的明文密码2333</p>
+<h2 id="密码解密"><a href="#密码解密" class="headerlink" title="密码解密"></a>密码解密</h2><p>解密方法：L:\U8CERP\middleware\mw.jar  -&gt; <code>decode()</code></p>
+<p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210530060422.png" srcset="/img/loading.gif" alt="image-20210530055358440"></p>
+<p>文件太杂直接全局搜索<code>nc.vo.framework.rsa;</code>，发现藏在<code>U8CERP\external\lib\basic.jar</code>里</p>
+<p>idea把这两个jar包导入，直接解密（用户密码也一样的加密）。</p>
+<p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210530060427.png" srcset="/img/loading.gif" alt="image-20210530055907420"> </p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-
-<div class="text-center tagcloud">
-  <a href="/tags/%E6%BC%8F%E6%B4%9E%E8%AF%A6%E6%83%85/" style="font-size: 15px; color: #bbe">漏洞详情</a> <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" style="font-size: 30px; color: #337ab7">疑难杂症</a>
-</div>
-
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/">疑难杂症</a>
+                    
+                  </div>
+                
               </div>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/06/Parallels%E5%AE%89%E8%A3%85kali%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Parallels安装kali折腾笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
             </div>
+
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -219,6 +308,34 @@
 
 
 
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
@@ -238,7 +355,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签&nbsp;",
+        "用友N8C-ERP密码解密&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -281,6 +398,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
