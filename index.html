@@ -157,6 +157,38 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/06/24/Xdebug3%E8%BF%9C%E7%A8%8B%E8%B0%83%E5%BC%8F%E9%85%8D%E7%BD%AE/">Xdebug3远程调式配置</a>
+
+      <a href="/2021/06/24/Xdebug3%E8%BF%9C%E7%A8%8B%E8%B0%83%E5%BC%8F%E9%85%8D%E7%BD%AE/" class="index-excerpt">
+        
+        
+          
+        
+        <div>Xdebug3远程调式配置前言不得不说宝塔搭配xdebug.remote_connect_back远程调试是真的香，xdebug3改了挺多选项在此记录一下。
+更新参见：https://xdebug.org/docs/upgrade_guide
+
+配置根据php版本下载对应的xdebug扩展文件
+把php -i或者phpinfo()内容放入https://xdebug.org/wizard 即可
+
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-06-24
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2021/06/17/Mssql%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/">Mssql利用笔记</a>
 
       <a href="/2021/06/17/Mssql%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/" class="index-excerpt">
@@ -166,12 +198,13 @@
         
         <div>常用host_name() @@servername @@version  db_name()
 
-;declare @d int 
+查用户
+select name,sys.fn_varbintohexstr(password_hash) from sys.sql_logins
 
+ 
 and 1&#x3D;(select top N * from 指定数据库..指定表名 FOR XML PATH(&#39;&#39;))--
 
-检测XP_DIRTREE读子目录：
-and 1&#x3D;(SELECT count(*) FROM master.db</div>
+检测</div>
       </a>
 
       <div class="index-btm post-metas">
