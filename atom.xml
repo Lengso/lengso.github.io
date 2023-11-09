@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://l1e.me</id>
+    <title>L1e</title>
+    <updated>2023-11-09T07:02:02.280Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://l1e.me"/>
+    <link rel="self" href="https://l1e.me/atom.xml"/>
+    <subtitle>清空你的杯子，方能再行注满。</subtitle>
+    <logo>https://l1e.me/images/avatar.png</logo>
+    <icon>https://l1e.me/favicon.ico</icon>
+    <rights>All rights reserved 2023, L1e</rights>
+</feed>
